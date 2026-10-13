@@ -1,0 +1,244 @@
+.app-container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.bg-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 30%, #0d1b2a 70%, #0f0f23 100%);
+  z-index: -1;
+}
+
+.bg-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1rem;
+  z-index: 10;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #6366f1, #10b981, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0;
+}
+
+.canvas-container {
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(15, 15, 35, 0.5);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  box-shadow: 
+    0 0 60px rgba(99, 102, 241, 0.1),
+    inset 0 0 60px rgba(99, 102, 241, 0.05);
+}
+
+.three-canvas {
+  cursor: grab;
+}
+
+.three-canvas:active {
+  cursor: grabbing;
+}
+
+.controls {
+  margin: 1.5rem 0;
+  z-index: 10;
+}
+
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.course-panel {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  backdrop-filter: blur(20px);
+  margin: 1rem 0;
+  animation: slideUp 0.5s ease;
+}
+
+.course-info h3 {
+  color: white;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+}
+
+.course-info p {
+  color: #94a3b8;
+  margin: 0;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 1rem;
+  animation: fadeIn 0.8s ease;
+}
+
+.course-card {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--card-color), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.course-card:hover::before,
+.course-card.active::before {
+  opacity: 0.1;
+}
+
+.course-card:hover,
+.course-card.active {
+  border-color: var(--card-color);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.course-card h4 {
+  color: white;
+  font-size: 0.95rem;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .canvas-container {
+    height: 400px;
+  }
+  
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .course-panel {
+    flex-direction: column;
+    text-align: center;
+  }
+}
