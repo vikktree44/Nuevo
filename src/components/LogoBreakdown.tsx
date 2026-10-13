@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text, Float } from '@react-three/drei';
 import * as THREE from 'three';
@@ -193,45 +193,40 @@ function ConnectionLine({
   progress: number;
   color: string;
 }) {
-  const lineRef = useRef<THREE.Line>(null);
   const angle = (index / total) * Math.PI * 2 - Math.PI / 2;
   const targetRadius = 3;
-  const currentRadius = progress * targetRadius;
+
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    const positions = new Float32Array(6); // 2 points * 3 coords
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    return geo;
+  }, []);
+
+  const material = useMemo(() => {
+    return new THREE.LineBasicMaterial({ 
+      color, 
+      transparent: true, 
+      opacity: 0.5 
+    });
+  }, [color]);
+
+  const lineObj = useMemo(() => {
+    return new THREE.Line(geometry, material);
+  }, [geometry, material]);
 
   useFrame(() => {
-    if (lineRef.current) {
-      const positions = lineRef.current.geometry.attributes.position;
-      if (positions) {
-        positions.setXYZ(0, 0, 0, 0);
-        positions.setXYZ(1, 
-          Math.cos(angle) * currentRadius,
-          Math.sin(angle) * currentRadius * 0.3,
-          Math.sin(angle) * currentRadius
-        );
-        positions.needsUpdate = true;
-      }
-    }
-  });
-
-  const points = [
-    new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(
+    const currentRadius = progress * targetRadius;
+    const positions = geometry.attributes.position as THREE.BufferAttribute;
+    positions.setXYZ(0, 0, 0, 0);
+    positions.setXYZ(1, 
       Math.cos(angle) * currentRadius,
       Math.sin(angle) * currentRadius * 0.3,
       Math.sin(angle) * currentRadius
-    ),
-  ];
+    );
+    positions.needsUpdate = true;
+    material.opacity = progress * 0.5;
+  });
 
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
-
-  return (
-    <primitive object={new THREE.Line(
-      geometry,
-      new THREE.LineBasicMaterial({ 
-        color, 
-        transparent: true, 
-        opacity: progress * 0.5 
-      })
-    )} />
-  );
+  return <primitive object={lineObj} />;
 }

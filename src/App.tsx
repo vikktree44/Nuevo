@@ -2,7 +2,7 @@ import { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment } from '@react-three/drei';
 import MainLogo3D from './components/MainLogo3D';
-import CourseLogo3D from './components/CourseLogo3D';
+import CourseLogo2D from './components/CourseLogo2D';
 import LogoBreakdown from './components/LogoBreakdown';
 import './App.css';
 
@@ -76,7 +76,7 @@ export default function App() {
       {/* Course Info Panel */}
       {activeCourse !== null && (
         <div className="course-panel">
-          <CourseLogo3D course={courses[activeCourse - 1]} />
+          <CourseLogo2D course={courses[activeCourse - 1]} />
           <div className="course-info">
             <h3>{courses[activeCourse - 1].name}</h3>
             <p>Click to learn more about this training program</p>

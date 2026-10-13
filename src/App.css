@@ -223,6 +223,149 @@
   }
 }
 
+/* 2D Course Logo Animations */
+.course-logo-2d {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 300px;
+}
+
+.logo-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--glow-color);
+  opacity: 0.15;
+  filter: blur(15px);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.2); opacity: 0.25; }
+}
+
+.shape-2d {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  transform-style: preserve-3d;
+  animation: rotate-3d 4s linear infinite;
+}
+
+@keyframes rotate-3d {
+  from { transform: rotateX(0deg) rotateY(0deg); }
+  to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* Cube */
+.shape-cube {
+  transform-style: preserve-3d;
+}
+
+.shape-face {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: var(--shape-color);
+  opacity: 0.7;
+  border: 1px solid var(--shape-color);
+}
+
+.shape-face.front  { transform: translateZ(25px); }
+.shape-face.back   { transform: rotateY(180deg) translateZ(25px); }
+.shape-face.left   { transform: rotateY(-90deg) translateZ(25px); }
+.shape-face.right  { transform: rotateY(90deg) translateZ(25px); }
+.shape-face.top    { transform: rotateX(90deg) translateZ(25px); }
+.shape-face.bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+/* Diamond */
+.shape-diamond {
+  animation: rotate-diamond 3s linear infinite;
+}
+
+@keyframes rotate-diamond {
+  from { transform: rotateY(0deg) rotateZ(45deg); }
+  to { transform: rotateY(360deg) rotateZ(45deg); }
+}
+
+.diamond-inner {
+  width: 40px;
+  height: 40px;
+  background: var(--shape-color);
+  transform: rotateZ(-45deg);
+  opacity: 0.8;
+  box-shadow: 0 0 20px var(--shape-color);
+}
+
+/* Sphere with rings */
+.shape-sphere {
+  animation: rotate-sphere 5s linear infinite;
+}
+
+@keyframes rotate-sphere {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.sphere-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--shape-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 15px var(--shape-color);
+}
+
+.sphere-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 45px;
+  height: 45px;
+  border: 2px solid var(--shape-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+}
+
+.sphere-ring.ring-1 { transform: translate(-50%, -50%) rotateX(60deg); }
+.sphere-ring.ring-2 { transform: translate(-50%, -50%) rotateY(60deg); }
+.sphere-ring.ring-3 { transform: translate(-50%, -50%) rotateX(60deg) rotateY(60deg); }
+
+/* Octahedron */
+.shape-octa {
+  animation: rotate-octa 3.5s linear infinite;
+}
+
+@keyframes rotate-octa {
+  from { transform: rotateX(0deg) rotateZ(0deg); }
+  to { transform: rotateX(360deg) rotateZ(360deg); }
+}
+
+.octa-face {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 35px solid var(--shape-color);
+  opacity: 0.7;
+}
+
+.octa-face.face-1 { transform: translate(5px, -5px) rotateX(30deg); }
+.octa-face.face-2 { transform: translate(5px, -5px) rotateX(30deg) rotateY(90deg); }
+.octa-face.face-3 { transform: translate(5px, 5px) rotateX(-30deg) rotateZ(180deg); }
+.octa-face.face-4 { transform: translate(5px, 5px) rotateX(-30deg) rotateY(90deg) rotateZ(180deg); }
+
 /* Responsive */
 @media (max-width: 768px) {
   .title {
